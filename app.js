@@ -50,12 +50,30 @@ function addTask(e) {
     // Append li to ul
     taskList.appendChild(li);
 
-    // clear input 
+    ///// After adding item to the DOM -> Store in Local Storage
+    storeTaskInLocalStorage(taskInput.value);
+
+
+    // Clear input 
     taskInput.value = '';
     
     console.log(li);
 
     e.preventDefault();
+}
+
+// Store Task
+function storeTaskInLocalStorage(task) {
+    let tasks; 
+    if(localStorage.getItem('tasks') === null){
+        tasks = [];
+    } else {
+        // PARSE it as JSON because local storage can only store strings 
+        tasks = JSON.parse(localStorage.getItem('tasks'));
+    }
+    tasks.push(task);
+
+    localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
 // Remove Task 
